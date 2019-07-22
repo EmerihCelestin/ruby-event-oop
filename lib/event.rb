@@ -10,7 +10,11 @@ class Event
 		@attendess = attendess_save
 	end	
 
+	def postpone_24
+		 puts @start_date = @start_date + (24*60*60) 
+	end	
 end
+
 
 binding.pry
 puts "end of file"
