@@ -1,7 +1,7 @@
 require 'time'
 
 class Event
-	attr_accessor :start_date, :duration, :title, :attendees
+	attr_accessor :start_date, :duration, :title, :attendees 
 
 	def initialize(start,durer,note,attendees_save)
 		@start_date = Time.parse(start)
@@ -18,7 +18,7 @@ class Event
 		puts @start_date = @start_date + @duration*60
 	end	
 
-	def is_paste?
+	def is_past?
 		return @start_date < Time.now 
 	end 
 
@@ -38,9 +38,43 @@ class Event
 		
 	end
 
+	def age_analysis
+		age_array = []
+		average = 0
+
+		@attendees.each { |attendee|
+		 age_array << attendee.age
+		 average = average + attendee.age
+		   }
+
+		average = average / @attendees.length
+
+		puts "Voici les âges des participants : "
+		puts age_array.join(", ")
+		puts "La moyenne d'âges est de #{average} ans"
+
+	end	
+		 
 
 end
+ 
+ class WorkEvent < Event
+ 	 attr_accessor :location
+ 	 	def initialize(start, durer, note, attendees_save, location)
+    @location = location
+ 	 		super(start, durer, note, attendees_save)
+ 	 	end	
 
+ 	def is_event_acceptable?
+ 		if @attendees.length > 3 || @duration > 60
+ 			puts "Cette réunion ne respecte pas nos bonnes pratiques !"
 
-binding.pry
+ 			return false
+ 		else 
+ 			puts "Cette  réunion est OK."	
+ 			return true
+ 		end
+ 	end 
+ end	
+
 puts "end of file"
