@@ -12,6 +12,18 @@ class User
 	def self.all
 		puts @@all_user
 	end
+
+	def self.find_by_email(email_to_save)
+		@@all_user.each { |user|  
+			if user.email == email_to_save
+				
+				return "Voici l'age du User trouvé : #{user.age}"
+			end
+			}
+
+			puts "aucun utilisateur n'a cet email"	
+			return false
+	end		 
 end
 
 puts "end of file"
